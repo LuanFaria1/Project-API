@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Aluno</title>
+</head>
+<body>
+    <h1>Cadastro de Aluno</h1>
+    <form id="aluno-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" required>
+
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" required>
+
+        <label for="nota_primeiro_semestre">Nota Primeiro Semestre:</label>
+        <input type="number" step="0.1" id="nota_primeiro_semestre" name="nota_primeiro_semestre" required>
+
+        <label for="nota_segundo_semestre">Nota Segundo Semestre:</label>
+        <input type="number" step="0.1" id="nota_segundo_semestre" name="nota_segundo_semestre" required>
+
+        <label for="media_final">Média Final:</label>
+        <input type="number" step="0.1" id="media_final" name="media_final" required>
+
+        <label for="turma_id">Turma:</label>
+        <select id="turma_id" name="turma_id" required>
+        </select>
+
+        <button type="submit">Cadastrar Aluno</button>
+    </form>
+
+    <script>
+        function carregarTurmas() {
+            fetch('/turmas')
+                .then(response => response.json())
+                .then(data => {
+                    const turmaSelect = document.getElementById('turma_id');
+                    data.forEach(turma => {
+                        const option = document.createElement('option');
+                        option.value = turma.id;
+                        option.textContent = turma.descricao;
+                        turmaSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar turmas:', error));
+        }
+        document.getElementById('aluno-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                nome: document.getElementById('nome').value,
+                idade: document.getElementById('idade').value,
+                data_nascimento: document.getElementById('data_nascimento').value,
+                nota_primeiro_semestre: document.getElementById('nota_primeiro_semestre').value,
+                nota_segundo_semestre: document.getElementById('nota_segundo_semestre').value,
+                media_final: document.getElementById('media_final').value,
+                turma_id: document.getElementById('turma_id').value
+            };
+
+            fetch('/aluno', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Erro:', error));
+        });
+        window.onload = carregarTurmas;
+    </script>
+</body>
+</html>

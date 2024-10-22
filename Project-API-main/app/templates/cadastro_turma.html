@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Turma</title>
+</head>
+<body>
+    <h1>Cadastro de Turma</h1>
+    <form id="turma-form">
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+        
+        <label for="professor_id">Professor:</label>
+        <select id="professor_id" name="professor_id" required>
+            <!-- Professores serão carregados dinamicamente -->
+        </select>
+        
+        <button type="submit">Cadastrar Turma</button>
+    </form>
+
+    <script>
+        async function loadProfessores() {
+            const response = await fetch('/professores');
+            const professores = await response.json();
+            const professorSelect = document.getElementById('professor_id');
+
+            professores.forEach(professor => {
+                const option = document.createElement('option');
+                option.value = professor.id;
+                option.textContent = professor.nome;
+                professorSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById('turma-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                descricao: document.getElementById('descricao').value,
+                professor_id: document.getElementById('professor_id').value
+            };
+
+            fetch('/turma', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Erro:', error));
+        });
+
+        window.onload = loadProfessores;
+    </script>
+</body>
+</html>

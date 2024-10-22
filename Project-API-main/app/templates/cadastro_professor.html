@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Professor</title>
+</head>
+<body>
+    <h1>Cadastro de Professor</h1>
+    <form id="professor-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" required>
+        
+        <label for="materia">Matéria:</label>
+        <input type="text" id="materia" name="materia" required>
+        
+        <label for="observacoes">Observações:</label>
+        <textarea id="observacoes" name="observacoes"></textarea>
+        
+        <button type="submit">Cadastrar Professor</button>
+    </form>
+
+    <script>
+        document.getElementById('professor-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                nome: document.getElementById('nome').value,
+                idade: document.getElementById('idade').value,
+                materia: document.getElementById('materia').value,
+                observacoes: document.getElementById('observacoes').value
+            };
+
+            fetch('/professor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Erro:', error));
+        });
+    </script>
+</body>
+</html>
