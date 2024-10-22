@@ -4,40 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Turmas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Listar Turmas</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th>Professor</th>
-                <th>Alunos</th>
-            </tr>
-        </thead>
-        <tbody id="turmas-table-body">
-            <!-- As turmas serão carregadas dinamicamente -->
-        </tbody>
-    </table>
+    <header>
+        <h1>Listagem de Turmas</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/cadastro_professor">Cadastrar Professor</a>
+            <a href="/cadastro_turma">Cadastrar Turma</a>
+            <a href="/cadastro_aluno">Cadastrar Aluno</a>
+        </nav>
+    </header>
 
-    <script>
-        async function loadTurmas() {
-            const response = await fetch('/turmas');
-            const turmas = await response.json();
-            const tbody = document.getElementById('turmas-table-body');
-
-            turmas.forEach(turma => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${turma.descricao}</td>
-                    <td>${turma.professor.nome}</td>
-                    <td>${turma.alunos.map(aluno => aluno.nome).join(', ')}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        window.onload = loadTurmas;
-    </script>
+    <div class="container">
+        <section>
+            <h2>Tabela de Turmas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Materia</th>
+                        <th>Professor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemplo de dados, isso deve ser gerado dinamicamente -->
+                    <tr>
+                        <td>1</td>
+                        <td>Turma de Matemática</td>
+                        <td>João da Silva</td>
+                        <td>Ativa</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Turma de História</td>
+                        <td>Maria Oliveira</td>
+                        <td>Ativa</td>
+                    </tr>
+                    <!-- Adicione mais turmas aqui -->
+                </tbody>
+            </table>
+        </section>
+    </div>
 </body>
 </html>

@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Página Inicial</h1>
-    <nav>
-        <ul>
-            <li><a href="/cadastro_professor">Cadastro de Professor</a></li>
-            <li><a href="/cadastro_turma">Cadastro de Turma</a></li>
-            <li><a href="/cadastro_aluno">Cadastro de Aluno</a></li>
-            <li><a href="/listar_turmas">Listar Turmas</a></li>
-        </ul>
-    </nav>
+    <header>
+        <h1>Seja Bem-Vindo a School API</h1>
+        <nav>
+            <a href="/cadastro_professor">Cadastrar Professor</a>
+            <a href="/cadastro_turma">Cadastrar Turma</a>
+            <a href="/cadastro_aluno">Cadastrar Aluno</a>
+            <a href="/listar_turmas">Listar Turmas</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Sobre o Projeto</h2>
+            <p>Este projeto visa facilitar a gestão de professores, turmas e alunos de forma eficiente e prática.</p>
+        </section>
+        <section>
+            <h2>Comece agora</h2>
+            <button onclick="location.href='/cadastro_professor'">Cadastrar um Professor</button>
+        </section>
+    </div>
 </body>
 </html>
